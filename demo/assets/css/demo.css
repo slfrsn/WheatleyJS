@@ -1,0 +1,44 @@
+body {
+  padding: 120px 40px;
+  background: url("../img/portal.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+
+a {
+  color: #373A3C !important;
+  border-bottom: 1px dashed rgba(55, 58, 60, 0.3);
+}
+
+a:hover {
+  color: #373A3C;
+  text-decoration: none !important;
+}
+
+h1 {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 60px;
+  letter-spacing: 8px;
+  font-weight: 300;
+}
+
+.lead, ul, h1 {
+  margin-bottom: 60px;
+}
+
+.heart {
+  color: #373A3C;
+  font-size: 160%;
+  font-weight: bold;
+  display: inline-block;
+  -webkit-transform: translateY(4px);
+  -ms-transform: translateY(4px);
+  transform: translateY(4px);
+  font-family: 'Times';
+}
+
+#portal-area {
+  padding: 40px;
+  border: 6px dashed #373A3C;
+  border-radius: 30px;
+  height: 500px;
+}
