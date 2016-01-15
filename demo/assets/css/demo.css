@@ -1,44 +1,54 @@
+@import url(https://fonts.googleapis.com/css?family=Just+Me+Again+Down+Here);
+body, html, .row, .row > div, #inner {
+  margin: 0;
+  overflow: hidden;
+  height: 100%;
+}
+
 body {
-  padding: 120px 40px;
-  background: url("../img/portal.jpg") no-repeat center center fixed;
-  background-size: cover;
+  background: url("../img/portal.jpg") no-repeat center/cover fixed;
 }
 
 a {
-  color: #373A3C !important;
-  border-bottom: 1px dashed rgba(55, 58, 60, 0.3);
+  color: #333 !important;
 }
 
 a:hover {
-  color: #373A3C;
   text-decoration: none !important;
 }
 
-h1 {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 60px;
-  letter-spacing: 8px;
-  font-weight: 300;
+#credit a {
+  font: 2.5rem 'Just Me Again Down Here', cursive;
+  margin-left: 10px;
 }
 
-.lead, ul, h1 {
+#title, .lead, ul {
   margin-bottom: 60px;
 }
 
-.heart {
-  color: #373A3C;
-  font-size: 160%;
-  font-weight: bold;
-  display: inline-block;
-  -webkit-transform: translateY(4px);
-  -ms-transform: translateY(4px);
-  transform: translateY(4px);
-  font-family: 'Times';
+#title {
+  font: 300 4rem 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  letter-spacing: 8px;
+}
+
+#documentation {
+  padding: 80px;
+  overflow-y: scroll;
 }
 
 #portal-area {
-  padding: 40px;
-  border: 6px dashed #373A3C;
+  padding: 80px;
+}
+
+#inner {
   border-radius: 30px;
-  height: 500px;
+  border: 6px dashed #333;
+}
+
+#heart {
+  font: bold 2rem 'Times';
+  display: inline-block;
+  -webkit-transform: translateY(0.2rem);
+  -ms-transform: translateY(0.2rem);
+  transform: translateY(0.2rem);
 }

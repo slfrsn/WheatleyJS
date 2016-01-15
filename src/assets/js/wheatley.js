@@ -2,7 +2,7 @@
  * CSS Portals, v1.0a (http://github.com/scfrsn)
  * Copyright 2016 Stef Friesen (http://frsn.ca)
  * Licensed under the MIT license
- * Last Updated: 1/13/2016, 9:16:44 AM
+ * Last Updated: 1/14/2016, 1:32:43 PM
  */
 
 (function($) {
@@ -32,20 +32,39 @@
 
         // Listen for left / right clicks on the element
         // Left click to create a blue portal, right click for orange
-        $(element, element + ' *').on('click contextmenu', function(e) {
+        $('body *').on('click contextmenu', function(e) {
           e.stopPropagation();
-          var coord = getCoordinates(e, true);
-          if(e.type == 'click')       plugin.createPortal('blue',   coord.x, coord.y);
-          if(e.type == 'contextmenu') plugin.createPortal('orange', coord.x, coord.y);
-          return false;
+          if ($(e.target).is(element, element + ' *')) {
+            if(e.type == 'click')       plugin.createPortal('blue',   e.pageX, e.pageY);
+            if(e.type == 'contextmenu') plugin.createPortal('orange', e.pageX, e.pageY);
+            return false;
+          } else {
+		        plugin.portalGun('misfire');
+            // Disable the context menu everywhere if the gun is not restricted
+				    if (settings.restrictGun == false) return false;
+          }
         });
 
         // Listen for left / right clicks on existing portals
         // Left click to destroy a blue portal, right click for orange
-        $(element, element + ' *').on('click contextmenu', '.portal *', function(e) {
+        $(document).on('click contextmenu', '.portal *', function(e) {
           e.stopPropagation();
-          if(e.type == 'click')       plugin.destroyPortal('blue');
-          if(e.type == 'contextmenu') plugin.destroyPortal('orange');
+          if(e.type == 'click') {
+            if ($(e.target).is('#blue-portal *')) {
+              plugin.destroyPortal('blue');
+              plugin.portalGun('fire');
+            } else {
+              plugin.portalGun('misfire');
+            }
+          }
+          if(e.type == 'contextmenu') {
+            if ($(e.target).is('#orange-portal *')) {
+              plugin.destroyPortal('orange')
+              plugin.portalGun('fire');
+            } else {
+              plugin.portalGun('misfire');
+            }
+          }
           return false;
         });
 
@@ -54,11 +73,14 @@
         var gunZone = 'body';
         if (settings.restrictGun == true) gunZone = element, element + ' *';
       	$(gunZone).on('mousemove', function(e){
-          var coord = getCoordinates(e, false);
+  				plugin.portalGun('activate');
       		gun.css({
-      			top:  coord.y - 20,
-      			left: coord.x - 50
+      			top:  e.pageY - (gun.outerWidth() / 4),
+      			left: e.pageX - (gun.outerWidth() / 4)
           });
+      	});
+      	$(gunZone).on('mouseout', function(e){
+  				plugin.portalGun('deactivate');
       	});
       }
 
@@ -74,16 +96,15 @@
 	      '</div>';
 
         // Prevent the portals from spilling over the edges of the element
-        var parentWidth = $element.outerWidth(),
-           parentHeight = $element.outerHeight(),
-            portalWidth = settings.portalSize / 2,
-           portalHeight = settings.portalSize * 1.3 / 2; // Accounts for the scaleY() transform
+        // .offset() and .position() won't work for this because any margins, padding, etc.
+        // will throw off the offset.
+        var bounds = getBounds(x, y);
         // Upper constraints
-        if (x < portalWidth)  { x = x + (portalWidth - x); }
-        if (y < portalHeight) { y = y + (portalHeight - y); }
+        if (bounds.portal.left < bounds.element.left)     x = bounds.element.left + bounds.portal.center.x;
+        if (bounds.portal.top < bounds.element.top)       y = bounds.element.top + bounds.portal.center.y;
         // Lower constraints
-        if (x > (parentWidth - portalWidth))   { x = parentWidth - portalWidth; }
-        if (y > (parentHeight - portalHeight)) { y = parentHeight - portalHeight; }
+        if (bounds.portal.right > bounds.element.right)   x = bounds.element.right - bounds.portal.center.x;
+        if (bounds.portal.bottom > bounds.element.bottom) y = bounds.element.bottom - bounds.portal.center.y;
 
         // Prepare the updated coordinates and dimensions to apply to the new portal
         var portalStyles = {
@@ -106,37 +127,58 @@
   		    // Update the new portal's positioning and size
   		    newPortal.css(portalStyles);
         } else { // Portal doesn't exist, create it!
-  		    $(template).appendTo(element).css(portalStyles);
+  		    $(template).appendTo('body').css(portalStyles);
         }
 
-				fire();
+        // Invoke the portal gun animation: fire
+				plugin.portalGun('fire');
       }
 
 		  plugin.destroyPortal = function(color) {
         var portal = $('#' + color + '-portal');
-				portal.removeClass('appear').addClass('disappear');
+				portal.addClass('disappear');
 				portal.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
 					$(this).remove();
 				});
 			}
 
-      var getCoordinates = function(e, forceOffset) {
-    		var x = e.pageX,
-    		    y = e.pageY;
-        // Subtract the offset of the portal area if the gun is restricted
-				if (settings.restrictGun == true || forceOffset == true) {
-    		  var offset = $element.offset();
-          x = x - offset.left;
-          y = y - offset.top;
+		  plugin.portalGun = function(action) {
+        // Invoke the portal gun's animations
+        if (action == 'fire' || action == 'misfire') {
+  				$('#portal-gun').addClass(action);
+  				$('#portal-gun').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+  					$(this).removeClass(action);
+  				});
         }
-    		return { x : x, y : y };
-      }
+        // Add / remove the .portal-gun-active class from the body
+        if (action == 'activate')   $('body').addClass('portal-gun-active');
+        if (action == 'deactivate') $('body').removeClass('portal-gun-active');
+			}
 
-      var fire = function() {
-				$('#portal-gun').addClass('fire');
-				$('#portal-gun').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-					$(this).removeClass('fire');
-				});
+      var getBounds = function(x, y) {
+        var center = {
+          y : settings.portalSize * 1.3 / 2, // Multiplier accounts for the scaleY() transform
+          x : settings.portalSize / 2
+        };
+        var bounds = {
+          portal: {
+            top      : y - center.y,
+            left     : x - center.x,
+            bottom   : y + center.y,
+            right    : x + center.x,
+            center: {
+              y : center.y,
+              x : center.x
+            }
+          },
+          element: {
+            top    : $element.offset().top,
+            left   : $element.offset().left,
+            bottom : $element.offset().top + $element.outerHeight(),
+            right  : $element.offset().left + $element.outerWidth()
+          }
+        };
+        return bounds;
       }
 
       plugin.init();
