@@ -94,9 +94,7 @@ gulp.task('watch', ['styles'], function() {
 });
 
 // Run the tasks ('default' is required)
-gulp.task('default', [
-  'scripts',
-	'images',
-  'html',
-  'watch'
-]);
+gulp.task('default', ['scripts','images','html']);
+
+// Start the file server
+gulp.task('serve', ['default','watch']);

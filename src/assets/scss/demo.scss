@@ -1,23 +1,25 @@
 // Demo CSS
 @import url(https://fonts.googleapis.com/css?family=Just+Me+Again+Down+Here);
+$custom-font : 'Just Me Again Down Here', cursive;
 
-$app-color-accent: #333;
+// @import url(https://fonts.googleapis.com/css?family=Caveat);
+// $custom-font: 'Caveat', cursive;
 
-body, html, .row, .row > div, #inner {
+body, html, .row, .row > div, #portal-area {
   margin: 0;
   overflow: hidden;
   height: 100%;
 }
 body { background: url('../img/portal.jpg') no-repeat center / cover fixed; }
 a {
-  color: $app-color-accent !important;
+  color: #333 !important;
   &:hover { text-decoration: none !important; }
   #credit & {
-    font: 2.5rem 'Just Me Again Down Here', cursive;
+    font: 2.5rem $custom-font;
     margin-left: 10px;
   }
 }
-#title, .lead, ul { margin-bottom: 60px; }
+#title, .add-margin, ul { margin-bottom: 60px; }
 #title {
   font: 300 4rem 'Helvetica Neue', Helvetica, Arial, sans-serif;
   letter-spacing: 8px;
@@ -26,13 +28,13 @@ a {
   padding: 80px;
   overflow-y: scroll;
 }
+#playground { padding: 80px 80px 80px 0; }
 #portal-area {
-  padding: 80px;
-}
-#inner {
   border-radius: 30px;
-  border: 6px dashed $app-color-accent;
-
+  border: 6px dashed #333;
+}
+#credit {
+  text-align: right;
 }
 #heart {
   font: bold 2rem 'Times';

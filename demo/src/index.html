@@ -16,22 +16,32 @@
 
       <div class="col-md-6" id="documentation">
         <h1 id="title">WHEATLEY.JS</h1>
-        <p class="lead"><strong>Portal gun, meet the web.</strong> You ask: why on <em>Earth</em> did I go through all the trouble of recreating Valve's portals and packing it up in a jQuery plugin? Well... I, uhh...</p>
-        <p class="lead"><strong>"Science isn't about why, it's about why not."</strong> <em>– Cave Johnson</em></p>
-        <p><strong>How to use:</strong></p>
+        <p class="lead"><strong>Portal gun, meet the web.</strong> You're thinking: why on <em>Earth</em> would you go through all the trouble of recreating Valve's portals and packaging it up in a jQuery plugin? Well... I... <strong>"Science isn't about <em>why</em>, it's about <em>why not</em>."</strong> Yeah! What Cave Johnson said. Thanks, Cave! Alright, on to the good stuff...</p>
+        <p><strong>How to use the demo:</strong></p>
         <ul class="fa-ul">
-          <li><i class="fa-li fa fa-sign-in"></i>Left-click to place a blue portal</li>
+          <li><i class="fa-li fa fa-sign-in"></i>Left-click in the bordered area to place a blue portal</li>
           <li><i class="fa-li fa fa-sign-out"></i>Right-click to place a orange portal</li>
           <li><i class="fa-li fa fa-arrows"></i>Left or right-click in a new location to move a portal</li>
           <li><i class="fa-li fa fa-trash"></i>Click on a portal to destroy it</li>
         </ul>
-        <span class="lead" id="credit">
-          Made with <span id="heart">&hearts;</span> by <strike>Cave Johnson</strike> <a href="http://frsn.ca" class="text-muted">Stef Friesen</a>
-        </span>
+        <div class="btn-group btn-block" data-toggle="buttons">
+          <label class="btn btn-primary active">
+            <input type="checkbox" autocomplete="off"> Restrict Gun
+          </label>
+          <label class="btn btn-primary">
+            <input type="checkbox" checked autocomplete="off"> Enable Animation
+          </label>
+          <label class="btn btn-primary">
+            <input type="checkbox" checked autocomplete="off"> High Quality
+          </label>
+        </div>
       </div>
 
-      <div class="col-md-6" id="portal-area">
-        <div id="inner"></div>
+      <div class="col-md-6" id="playground">
+        <div id="portal-area"></div>
+        <div class="lead" id="credit">
+          Made with <span id="heart">&hearts;</span> by <strike>Cave Johnson</strike> <a href="http://frsn.ca" class="text-muted">Stef Friesen</a>
+        </div>
       </div>
 
     </div>
@@ -40,9 +50,11 @@
     <script src="../dist/wheatley.min.js"></script>
     <script>
       $(document).ready(function() {
-      	$('#inner').portals({
-      		'restrictGun': true,
-      		'portalSize' : 250
+      	$('#portal-area').portals({
+      		'portalSize'     : 200,
+      		'restrictGun'    : true,
+          'animatePortals' : true,
+          'highQuality'    : true
       	});
       });
     </script>

@@ -12,27 +12,34 @@ $portal-color-orange: #FF7C38;
 // Mixins
 @mixin portal-entrance($color, $gamma) {
   $adjusted-color: adjust-lightness($color, $gamma);
-  background-color: adjust-lightness($adjusted-color, -60%);
-  background: radial-gradient(ellipse,
-    adjust-lightness($adjusted-color, -60%) 10%,
-    adjust-lightness($adjusted-color, -59%) 20%,
-    adjust-lightness($adjusted-color, -53%) 42%,
-    adjust-lightness($adjusted-color, -48%) 58%,
-    adjust-lightness($adjusted-color, -40%) 100%
-  );
+  background-color: adjust-lightness($adjusted-color, -50%);
+  .high-quality & {
+    background: radial-gradient(ellipse,
+      adjust-lightness($adjusted-color, -60%) 10%,
+      adjust-lightness($adjusted-color, -59%) 20%,
+      adjust-lightness($adjusted-color, -53%) 42%,
+      adjust-lightness($adjusted-color, -48%) 58%,
+      adjust-lightness($adjusted-color, -40%) 100%
+    );
+  }
 }
-@mixin portal-layer($scale-x, $scale-y, $gamma, $rotation, $timing) {
+@mixin portal-layer($scale-x, $scale-y, $gamma, $rotation, $duration, $timing) {
   width: 100% * $scale-x;
   height: 100% * $scale-y;
   transform: translate(-50%, -50%) rotate($rotation);
-  animation: spin infinite $timing;
+  animation-duration: $duration !important;
+  animation-timing-function: $timing !important;
   #blue-portal &   {
     background: adjust-lightness($portal-color-blue, $gamma);
-    box-shadow: 0 0 20px rgba(adjust-lightness($portal-color-blue, $gamma), 0.4);
+    .high-quality & {
+      box-shadow: 0 0 20px rgba(adjust-lightness($portal-color-blue, $gamma), 0.4);
+    }
   }
   #orange-portal & {
     background: adjust-lightness($portal-color-orange, $gamma);
-    box-shadow: 0 0 20px rgba(adjust-lightness($portal-color-orange, $gamma), 0.4);
+    .high-quality & {
+      box-shadow: 0 0 20px rgba(adjust-lightness($portal-color-orange, $gamma), 0.4);
+    }
   }
 }
 
@@ -63,23 +70,23 @@ $portal-color-orange: #FF7C38;
 	width: 100px;
 	height: 100px;
   transform: scaleY(1.3);
-  div {
+  & > div {
     position: absolute;
     margin-top: 50%;
     margin-left: 50%;
     border-radius: 50%;
   }
 }
-.darkest  { @include portal-layer(0.90, 1.00, -15%,  90deg, 0.8s linear); }
-.darker   { @include portal-layer(0.90, 1.00, -10%,  45deg, 0.2s linear); }
-.normal   { @include portal-layer(0.90, 1.00,   0%,   0deg, 0.5s linear); }
-.lighter  { @include portal-layer(0.90, 1.00,  10%, -45deg, 1.1s linear); }
-.lightest { @include portal-layer(0.90, 1.00,  15%, -90deg, 0.8s linear); }
-.entrance { @include portal-layer(0.87, 0.85, -60%,   0deg, 0.1s ease);
+.darkest  { @include portal-layer(0.90, 1.00, -15%,  90deg, 0.8s, linear); }
+.darker   { @include portal-layer(0.90, 1.00, -10%,  45deg, 0.2s, linear); }
+.normal   { @include portal-layer(0.90, 1.00,   0%,   0deg, 0.5s, linear); }
+.lighter  { @include portal-layer(0.90, 1.00,  10%, -45deg, 1.1s, linear); }
+.lightest { @include portal-layer(0.90, 1.00,  15%, -90deg, 0.8s, linear); }
+.entrance { @include portal-layer(0.87, 0.85, -60%,   0deg, 0.1s, ease);
   box-shadow: 0 0 20px #fff !important;
   #blue-portal &   { @include portal-entrance($portal-color-blue, -8%); }
   #orange-portal & { @include portal-entrance($portal-color-orange, -3%); }
-  &:after {
+  .high-quality &:after {
 		content: '';
 		position: absolute;
 		top:0;
@@ -92,28 +99,28 @@ $portal-color-orange: #FF7C38;
 }
 
 // ANIMATIONS
-
+@mixin use-animation($name) {
+	animation-name: $name;
+	animation-duration: 0.2s;
+	animation-timing-function: ease;
+}
+.spin > div {
+  @include use-animation('spin');
+  animation-iteration-count: infinite;
+}
 @keyframes spin {
   0%   { transform: translate(-50%, -50%) rotate(  0deg); }
   100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-.fire {
-	animation-name: fire;
-	animation-timing-function: ease;
-	animation-duration: 0.2s !important;
-}
+.fire { @include use-animation('fire'); }
 @keyframes fire {
   0%   { transform: translate( 0px, 0px) rotate( 0deg); }
   20%  { transform: translate(50px, 8px) rotate(10deg); }
   100% { transform: translate( 0px, 0px) rotate( 0deg); }
 }
 
-.misfire {
-	animation-name: misfire;
-	animation-timing-function: ease;
-  animation-duration: 0.2s !important;
-}
+.misfire { @include use-animation('misfire'); }
 @keyframes misfire {
   0%   { transform: rotate( 0deg); }
   25%  { transform: rotate( 3deg); }
@@ -122,11 +129,7 @@ $portal-color-orange: #FF7C38;
   100% { transform: rotate( 0deg); }
 }
 
-.appear {
-	animation-name: appear;
-	animation-timing-function: ease;
-	animation-duration: 0.2s !important;
-}
+.appear { @include use-animation('appear'); }
 @keyframes appear {
   0%   { transform: scale( 0,   0); opacity:   0; }
   25%  { transform: scale(.8, 1.2); opacity: .25; }
@@ -134,14 +137,10 @@ $portal-color-orange: #FF7C38;
   100% { transform: scale( 1, 1.3); opacity:   1; }
 }
 
-.disappear {
-	animation-name: disappear;
-	animation-timing-function: ease;
-	animation-duration: 0.2s !important;
-}
+.disappear { @include use-animation('disappear'); }
 @keyframes disappear {
   0%   { transform: scale( 1, 1.3); opacity:   1; }
-  25%  { transform: scale(.9, 1.1); opacity: .75; }
-  50%  { transform: scale(.8,  .9); opacity: .25; }
+  25%  { transform: scale(.8, 1.1); opacity: .75; }
+  50%  { transform: scale(.9, 1.2); opacity: .25; }
   100% { transform: scale( 0,   0); opacity:   0; }
 }

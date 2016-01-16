@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Just+Me+Again+Down+Here);
-body, html, .row, .row > div, #inner {
+body, html, .row, .row > div, #portal-area {
   margin: 0;
   overflow: hidden;
   height: 100%;
@@ -18,11 +18,11 @@ a:hover {
 }
 
 #credit a {
-  font: 2.5rem 'Just Me Again Down Here', cursive;
+  font: 2.5rem "Just Me Again Down Here", cursive;
   margin-left: 10px;
 }
 
-#title, .lead, ul {
+#title, .add-margin, ul {
   margin-bottom: 60px;
 }
 
@@ -36,13 +36,17 @@ a:hover {
   overflow-y: scroll;
 }
 
-#portal-area {
-  padding: 80px;
+#playground {
+  padding: 80px 80px 80px 0;
 }
 
-#inner {
+#portal-area {
   border-radius: 30px;
   border: 6px dashed #333;
+}
+
+#credit {
+  text-align: right;
 }
 
 #heart {
