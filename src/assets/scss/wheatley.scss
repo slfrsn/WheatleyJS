@@ -45,9 +45,9 @@ $portal-color-orange: #FF7C38;
 
 // BODY STYLES
 
-#portal-area, .portal-gun-active {
-	user-select: none;
-	cursor: none;
+#portal-area, .portal-gun-active * {
+	user-select: none !important;
+	cursor: none !important;
 }
 
 // PORTAL GUN STYLES
@@ -59,7 +59,7 @@ $portal-color-orange: #FF7C38;
 	height: 200px;
 	background: url('../demo/assets/img/portalgun.png') no-repeat;
 	background-size: contain;
-	z-index: 1;
+	z-index: 9;
 	pointer-events: none;
 }
 

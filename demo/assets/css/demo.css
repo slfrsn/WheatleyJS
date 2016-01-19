@@ -49,10 +49,33 @@ a:hover {
   text-align: right;
 }
 
-#heart {
-  font: bold 2rem 'Times';
-  display: inline-block;
-  -webkit-transform: translateY(0.2rem);
-  -ms-transform: translateY(0.2rem);
-  transform: translateY(0.2rem);
+#options label {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-bottom: 0;
+}
+
+#options label:before {
+  position: absolute;
+  left: -2.14285714em;
+  width: 2.14285714em;
+  text-align: center;
+  font-family: FontAwesome;
+  content: "\f096";
+}
+
+#options label:after {
+  content: attr(data-description);
+}
+
+#options input[type=checkbox] {
+  display: none;
+}
+
+#options input[type=checkbox]:checked + label,
+#options input[type=checkbox]:checked + label:before {
+  content: "\f14a";
 }

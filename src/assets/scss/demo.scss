@@ -1,9 +1,7 @@
 // Demo CSS
+
 @import url(https://fonts.googleapis.com/css?family=Just+Me+Again+Down+Here);
 $custom-font : 'Just Me Again Down Here', cursive;
-
-// @import url(https://fonts.googleapis.com/css?family=Caveat);
-// $custom-font: 'Caveat', cursive;
 
 body, html, .row, .row > div, #portal-area {
   margin: 0;
@@ -33,11 +31,32 @@ a {
   border-radius: 30px;
   border: 6px dashed #333;
 }
-#credit {
-  text-align: right;
-}
-#heart {
-  font: bold 2rem 'Times';
-  display: inline-block;
-  transform: translateY(0.2rem);
+#credit { text-align: right; }
+
+// Custom Checkboxes
+
+#options {
+  label {
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 0;
+    &:before {
+      position: absolute;
+      left: -2.14285714em;
+      width: 2.14285714em;
+      text-align: center;
+      font-family: FontAwesome;
+      content: "\f096";
+    }
+    &:after {
+      content: attr(data-description);
+    }
+  }
+  input[type=checkbox] {
+    display: none;
+    &:checked + label,
+    &:checked + label:before {
+      content: "\f14a";
+    }
+  }
 }
