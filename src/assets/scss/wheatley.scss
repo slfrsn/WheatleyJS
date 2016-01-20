@@ -13,15 +13,16 @@ $portal-color-orange: #FF7C38;
 @mixin portal-entrance($color, $gamma) {
   $adjusted-color: adjust-lightness($color, $gamma);
   background-color: adjust-lightness($adjusted-color, -50%);
-  .high-quality & {
-    background: radial-gradient(ellipse,
-      adjust-lightness($adjusted-color, -60%) 10%,
-      adjust-lightness($adjusted-color, -59%) 20%,
-      adjust-lightness($adjusted-color, -53%) 42%,
-      adjust-lightness($adjusted-color, -48%) 58%,
-      adjust-lightness($adjusted-color, -40%) 100%
-    );
-  }
+}
+@mixin portal-gradient($color, $gamma) {
+  $adjusted-color: adjust-lightness($color, $gamma);
+  background: radial-gradient(ellipse,
+    adjust-lightness($adjusted-color, -60%) 10%,
+    adjust-lightness($adjusted-color, -59%) 20%,
+    adjust-lightness($adjusted-color, -53%) 42%,
+    adjust-lightness($adjusted-color, -48%) 58%,
+    adjust-lightness($adjusted-color, -40%) 100%
+  );
 }
 @mixin portal-layer($scale-x, $scale-y, $gamma, $rotation, $duration, $timing) {
   width: 100% * $scale-x;
@@ -29,23 +30,15 @@ $portal-color-orange: #FF7C38;
   transform: translate(-50%, -50%) rotate($rotation);
   animation-duration: $duration !important;
   animation-timing-function: $timing !important;
-  #blue-portal &   {
-    background: adjust-lightness($portal-color-blue, $gamma);
-    .high-quality & {
-      box-shadow: 0 0 20px rgba(adjust-lightness($portal-color-blue, $gamma), 0.4);
-    }
-  }
-  #orange-portal & {
-    background: adjust-lightness($portal-color-orange, $gamma);
-    .high-quality & {
-      box-shadow: 0 0 20px rgba(adjust-lightness($portal-color-orange, $gamma), 0.4);
-    }
-  }
+  #blue-portal & { background: adjust-lightness($portal-color-blue, $gamma); }
+  #blue-portal.high-quality & { box-shadow: 0 0 20px rgba(adjust-lightness($portal-color-blue, $gamma), 0.4); }
+  #orange-portal & { background: adjust-lightness($portal-color-orange, $gamma); }
+  #orange-portal.high-quality & { box-shadow: 0 0 20px rgba(adjust-lightness($portal-color-orange, $gamma), 0.4); }
 }
 
 // BODY STYLES
 
-#portal-area, .portal-gun-active * {
+.portal-gun-active {
 	user-select: none !important;
 	cursor: none !important;
 }
@@ -84,8 +77,10 @@ $portal-color-orange: #FF7C38;
 .lightest { @include portal-layer(0.90, 1.00,  15%, -90deg, 0.8s, linear); }
 .entrance { @include portal-layer(0.87, 0.85, -60%,   0deg, 0.1s, ease);
   box-shadow: 0 0 20px #fff !important;
-  #blue-portal &   { @include portal-entrance($portal-color-blue, -8%); }
-  #orange-portal & { @include portal-entrance($portal-color-orange, -3%); }
+  #blue-portal &                { @include portal-entrance($portal-color-blue, -8%); }
+  #blue-portal.high-quality &   { @include portal-gradient($portal-color-blue, -8%); }
+  #orange-portal &              { @include portal-entrance($portal-color-orange, -3%); }
+  #orange-portal.high-quality & { @include portal-gradient($portal-color-orange, -3%); }
   .high-quality &:after {
 		content: '';
 		position: absolute;

@@ -61,11 +61,11 @@ gulp.task('scripts', function() {
   return gulp.src(input.scripts + 'wheatley.js')
     .pipe(gulp.dest(output.dist))
     .pipe(rename({suffix: '.min'}))
-    // .pipe(uglify())
     .pipe(sourcemaps.init())
     .pipe(sourcemaps.write('./maps'))
     .pipe(gulp.dest(output.dist));
 });
+    // .pipe(uglify())
 
 // Process the images
 gulp.task('images', function() {
