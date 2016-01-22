@@ -53,6 +53,29 @@
         }
       }
 
+      // Calculates the bounding box of all of the plugin elements
+      plugin.positions = function() {
+        var portal = function(color) {
+          var $portal = $('#' + color + '-portal');
+          if($portal.length) {
+            return {
+              top      : $portal.offset().top,
+              left     : $portal.offset().left,
+              bottom   : $portal.offset().top + plugin.settings.size * 1.3,
+              right    : $portal.offset().left + plugin.settings.size,
+            };
+          }
+          return null;
+        }
+        var parent = {
+          top    : $element.offset().top,
+          left   : $element.offset().left,
+          bottom : $element.offset().top + $element.outerHeight(),
+          right  : $element.offset().left + $element.outerWidth()
+        };
+        return { parent : parent, blue : portal('blue'), orange : portal('orange') };
+      }
+
       plugin.destroy = function(callback) {
         plugin.gun.destroy();
         plugin.portal.destroy('blue');
@@ -87,11 +110,12 @@
                               '<div class="entrance"></div>' +
                             '</div>';
             // Prevent the portals from spilling over the edges of the element
-            var portalRect = plugin.portal.calculate(x, y);
-            if (portalRect.left   < portalRect.parent.left  ) x = portalRect.parent.left   + portalRect.center.x;
-            if (portalRect.top    < portalRect.parent.top   ) y = portalRect.parent.top    + portalRect.center.y;
-            if (portalRect.right  > portalRect.parent.right ) x = portalRect.parent.right  - portalRect.center.x;
-            if (portalRect.bottom > portalRect.parent.bottom) y = portalRect.parent.bottom - portalRect.center.y;
+            var newPortal = plugin.portal.calculate(x, y);
+            if (newPortal.left   < newPortal.parent.left  ) x = newPortal.parent.left   + newPortal.center.x;
+            if (newPortal.top    < newPortal.parent.top   ) y = newPortal.parent.top    + newPortal.center.y;
+            if (newPortal.right  > newPortal.parent.right ) x = newPortal.parent.right  - newPortal.center.x;
+            if (newPortal.bottom > newPortal.parent.bottom) y = newPortal.parent.bottom - newPortal.center.y;
+
             // Prepare the updated coordinates and dimensions to apply to the new portal
             var portalProperties = {
               width  : plugin.settings.size + 'px',
@@ -99,15 +123,28 @@
               top    : y - (plugin.settings.size / 2),
               left   : x - (plugin.settings.size / 2)
             }
-            // If the portal already exists, move it
-          	if($('#' + color + '-portal').length) {
-        	    // Clone the portal to restart the CSS animation
-        	    var oldPortal = $('#' + color + '-portal');
-        	        newPortal = oldPortal.clone(true);
-        	    oldPortal.removeClass('appear').addClass('disappear').before(newPortal).remove();
-        	    newPortal.css(portalProperties);
+
+            var altPortal;
+            if(color == 'orange') altPortal = plugin.positions().blue;
+            if(color == 'blue') altPortal = plugin.positions().orange;
+            if (altPortal !== null &&
+                newPortal.right > altPortal.left &&
+                newPortal.left < altPortal.right &&
+                newPortal.top < altPortal.bottom &&
+                newPortal.bottom > altPortal.top) {
+              plugin.gun.animate('misfire');
+              console.log('Error: Portals cannot overlap.');
             } else {
-        	    $(template).appendTo('body').css(portalProperties);
+              // If the portal already exists, move it
+        	    var $oldPortal = $('#' + color + '-portal');
+            	if($oldPortal.length) {
+          	    var $newPortal = $oldPortal.clone(true);
+          	    $oldPortal.removeClass('appear').addClass('disappear').before($newPortal).remove();
+          	    $newPortal.css(portalProperties);
+          	    // Clone the portal to restart the CSS animation
+              } else {
+          	    $(template).appendTo('body').css(portalProperties);
+              }
             }
         		plugin.gun.animate('fire');
             if (callback && (typeof callback == "function")) callback();
