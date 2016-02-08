@@ -1,12 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Just+Me+Again+Down+Here);
+body {
+  background: url("../img/portal.jpg") no-repeat center/cover fixed;
+}
+
 body, html, .row, .row > div, #portal-area {
   margin: 0;
   overflow: hidden;
   height: 100%;
-}
-
-body {
-  background: url("../img/portal.jpg") no-repeat center/cover fixed;
 }
 
 a {
@@ -78,4 +78,10 @@ a:hover {
 #options input[type=checkbox]:checked + label,
 #options input[type=checkbox]:checked + label:before {
   content: "\f14a";
+}
+
+.dragged {
+  -webkit-filter: brightness(0);
+  filter: brightness(0);
+  opacity: 0.1;
 }

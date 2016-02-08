@@ -42,7 +42,6 @@
         </li>
         </ul>
 
-
       </div>
 
       <div class="col-md-12 col-lg-6" id="playground">
@@ -77,7 +76,7 @@
             wheatley.gun.destroy();
             wheatley.option('container', 'body');
             wheatley.gun.initialize();
-            wheatley.gun.position(e.pageX, e.pageY);
+            wheatley.gun.update(e.pageX, e.pageY);
           }
         });
         $('#animation').on('change', function(){
