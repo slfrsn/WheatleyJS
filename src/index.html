@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Valve's Portals recreated in CSS with some javascript thrown in for a fun demo.">
+    <meta name="description" content="Valve's portals recreated in CSS and Javascript, bundled as a jQuery plugin">
     <meta name="author" content="Stef Friesen">
     <title>Wheatley.js</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
@@ -13,91 +13,66 @@
     <link rel="stylesheet" href="../demo/assets/css/demo.css">
   </head>
   <body>
-    <div class="row">
 
-      <div class="col-md-12 col-lg-6" id="documentation">
-        <h1 id="title">WHEATLEY.JS</h1>
-        <p class="lead add-margin"><strong>Portal gun, meet the web.</strong> You're thinking: why on <em>Earth</em> would you go through all the trouble of recreating Valve's portals and packaging it up in a jQuery plugin? Well... I... <strong>"Science isn't about <em>why</em>, it's about <em>why not</em>."</strong> Yeah! What Cave Johnson said. Thanks, Cave! Alright, on to the good stuff...</p>
-        <p class="lead"><strong>How to use the demo:</strong></p>
-        <ul class="fa-ul lead">
-          <li><i class="fa-li fa fa-sign-in"></i>Left-click in the bordered area to place a blue portal</li>
-          <li><i class="fa-li fa fa-sign-out"></i>Right-click to place an orange portal</li>
-          <li><i class="fa-li fa fa-arrows"></i>Left or right-click in a new location to move a portal</li>
-          <li><i class="fa-li fa fa-trash"></i>Click on a portal to destroy it</li>
-        </ul>
-
-        <p class="lead"><strong>Try out these options!</strong></p>
-        <ul class="fa-ul lead" id="options">
-        <li>
-          <input type="checkbox" id="container">
-          <label for="container" data-description="Keep the portal gun in the portal area"></label>
-        </li>
-        <li>
-          <input type="checkbox" id="animation" checked>
-          <label for="animation" data-description="Enable animated portals"></label>
-        </li>
-        <li>
-          <input type="checkbox" id="quality" checked>
-          <label for="quality" data-description="Render high quality portals"></label>
-        </li>
-        </ul>
-
-      </div>
-
-      <div class="col-md-12 col-lg-6" id="playground">
-        <div id="portal-area"></div>
-        <div class="lead" id="credit">
-          Made with <span class="fa fa-heart"></span> by <strike>Cave Johnson</strike> <a href="http://frsn.ca" class="text-muted">Stef Friesen</a>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <p class="add-margin" id="title">WHEATLEY.JS</p>
         </div>
       </div>
-
+      <div class="row">
+        <div class="col-md-12 col-lg-6">
+          <p class="lead add-margin"><strong>Portal gun, meet the web.</strong> You're thinking: why on <em>Earth</em> would you go through all the trouble of recreating Valve's portals and packaging it up in a jQuery plugin? Well... I... <strong>"Science isn't about <em>why</em>, it's about <em>why not</em>."</strong> Yeah! What Cave Johnson said. Thanks, Cave! Alright, on to the good stuff...</p>
+        </div>
+        <div class="col-md-12 col-lg-6">
+          <p class="lead"><strong>How to use the demo:</strong></p>
+          <ul class="fa-ul lead add-margin">
+            <li><i class="fa-li fa fa-sign-in"></i>Left-click below to place a blue portal</li>
+            <li><i class="fa-li fa fa-sign-out"></i>Right-click to place an orange portal</li>
+            <li><i class="fa-li fa fa-arrows"></i>Click somewhere else to move a portal</li>
+            <li><i class="fa-li fa fa-trash"></i>Click on a portal to destroy it</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 add-margin hide-if-touch">
+          <p class="lead">For documentation, check out the <a href="https://github.com/scfrsn/wheatleyjs" target="_blank"><strong>GitHub repository</strong> <i class="fa fa-external-link"></i></a>, and if you feel like checking some items off the to-do list, don't hesitate to contribute!</p>
+        </div>
+        <div class="col-xl-11 add-margin show-if-touch">
+          <p class="lead"><i class="fa fa-hand-paper-o"></i><strong>Easy there, Pointy!</strong> Wheatley isn't touch enabled yet. So if you're wielding a finger, maybe pop over to the <a href="https://github.com/scfrsn/wheatleyjs" target="_blank"><strong>GitHub repository</strong> <i class="fa fa-external-link"></i></a> and check out the screenshots <em>(or even better, contribute to the project!)</em></p>
+          <p class="lead">Buuuut because I'm such a sweetheart, I've created a blue portal below so you can see what it looks like in action.</p>
+        </div>
+      </div>
+      <div class="row" id="playground">
+        <div id="portal-area"></div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="lead" id="credit">
+            <span>Made with <span class="fa fa-heart"></span> by <strike class="hidden-sm-down">Cave Johnson</strike> </span><a href="http://frsn.ca" class="text-muted">Stef Friesen</a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
     <script src="../dist/wheatley.min.js"></script>
     <script>
-      $(document).ready(function() {
-        // Initialize Wheatley.js
-      	$('#portal-area').wheatley({
-          'size'      : 200,
-          'animation' : true,
-          'quality'   : 'high',
-          'container' : 'body'
-      	});
-
-        // Demo Settings
-        var wheatley = $('#portal-area').data('wheatley');
-        $('#container').on('click', function(e){
-          if($(this).is(':checked')) {
-            wheatley.gun.destroy();
-            wheatley.option('container', '#portal-area');
-            wheatley.gun.initialize();
-          } else {
-            wheatley.gun.destroy();
-            wheatley.option('container', 'body');
-            wheatley.gun.initialize();
-            wheatley.gun.update(e.pageX, e.pageY);
-          }
-        });
-        $('#animation').on('change', function(){
-          if($(this).is(':checked')) {
-            wheatley.option('animation', true);
-            $('.portal').addClass('spin');
-          } else {
-            wheatley.option('animation', false);
-            $('.portal').removeClass('spin');
-          }
-        });
-        $('#quality').on('change', function(){
-          if($(this).is(':checked')) {
-            wheatley.option('quality', 'high');
-            $('.portal').addClass('high-quality');
-          } else {
-            wheatley.option('quality', 'low');
-            $('.portal').removeClass('high-quality');
-          }
-        });
+      // Initialize Wheatley!
+    	$('#portal-area').wheatley({
+        container: '#portal-area'
+      });
+      // If touch is detected, show the notice and manual controls
+      $(document).on('touchstart', function setHasTouch(e) {
+        var p = $('#portal-area'),
+            x = p.offset().left + (p.outerWidth() / 2),
+            y = p.offset().top  + (p.outerHeight() / 2);
+        $('#portal-area').data('wheatley').portal.create('blue', { x:x, y:y });
+        $('#portal-area').data('wheatley').crosshair.destroy();
+        $('body').addClass('has-touch');
+        window.removeEventListener('touchstart', setHasTouch);
       });
     </script>
+
   </body>
 </html>

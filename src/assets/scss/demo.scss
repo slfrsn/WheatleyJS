@@ -3,66 +3,64 @@
 @import url(https://fonts.googleapis.com/css?family=Just+Me+Again+Down+Here);
 $custom-font : 'Just Me Again Down Here', cursive;
 
-body { background: url('../img/portal.jpg') no-repeat center / cover fixed; }
-body, html, .row, .row > div, #portal-area {
-  margin: 0;
-  overflow: hidden;
-  height: 100%;
+body { background: url('../img/background.jpg') no-repeat center / cover fixed; }
+.container, html, body { height:100%; }
+.container {
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+}
+.row { flex: 0 0 auto; }
+.fa-hand-paper-o {
+  font-size: 6rem;
+  float: left;
+  margin-right: 20px;
+}
+.show-if-touch { display: none; }
+.has-touch {
+  & .show-if-touch { display: block; }
+  & .hide-if-touch { display: none; }
+}
+.alert-wheatley {
+  color: #fff;
+  background-color: #333;
+  border-color: #333;
+  text-align: center;
+  & p { margin-bottom: 10px !important; }
 }
 a {
   color: #333 !important;
   &:hover { text-decoration: none !important; }
-  #credit & {
-    font: 2.5rem $custom-font;
-    margin-left: 10px;
-  }
 }
-#title, .add-margin, ul { margin-bottom: 60px; }
+.add-margin { margin-bottom: 60px; }
 #title {
-  font: 300 4rem 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font: 300 2rem 'Helvetica Neue', Helvetica, Arial, sans-serif;
   letter-spacing: 8px;
 }
-#documentation {
-  padding: 80px;
-  overflow-y: scroll;
-}
-#playground { padding: 80px 80px 80px 0; }
-#portal-area {
+#playground {
+  display: flex;
+  flex-direction: row;
+  flex:2;
   border-radius: 30px;
   border: 6px dashed #333;
-}
-#credit { text-align: right; }
-
-// Custom Checkboxes
-
-#options {
-  label {
-    cursor: pointer;
-    user-select: none;
-    margin-bottom: 0;
-    &:before {
-      position: absolute;
-      left: -2.14285714em;
-      width: 2.14285714em;
-      text-align: center;
-      font-family: FontAwesome;
-      content: "\f096";
-    }
-    &:after {
-      content: attr(data-description);
-    }
-  }
-  input[type=checkbox] {
-    display: none;
-    &:checked + label,
-    &:checked + label:before {
-      content: "\f14a";
-    }
+  min-height: 300px;
+  & > div {
+    height: vh;
+    width: 100%;
   }
 }
-
-// Companion Cube
-.dragged {
-  filter: brightness(0);
-  opacity: 0.1
+#credit {
+  text-align: right;
+  font-size: 1rem;
+  & a {
+    font: 2rem $custom-font;
+    margin-left: 5px;
+  }
+}
+@media (min-width: 34em) {
+  #title { font-size: 2.25rem; }
+  #credit a { font-size: 2rem; }
+}
+@media (min-width: 48em) {
+  #title { font-size: 2.5rem; }
 }

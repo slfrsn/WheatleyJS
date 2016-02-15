@@ -10,7 +10,8 @@ var sourcemaps = require('gulp-sourcemaps'),
 	   minifyCSS = require('gulp-minify-css'),
   		  filter = require('gulp-filter'),
   			  sass = require('gulp-sass'),
-				 merge = require('merge-stream');
+				 merge = require('merge-stream'),
+			 flatten = require('gulp-flatten');
 
 // Setup some common paths to use in the tasks
 var input = {
@@ -21,10 +22,12 @@ var input = {
 };
 var output = {
 	dist		: './dist/',
-	root    : './demo/',
-	styles  : './demo/assets/css/',
-	scripts : './demo/assets/js/',
-	images  : './demo/assets/img/'
+	demo		: {
+		root    : './demo/',
+		styles  : './demo/assets/css/',
+		scripts : './demo/assets/js/',
+		images  : './demo/assets/img/'
+	}
 };
 
 // Process the SASS files
@@ -36,7 +39,7 @@ gulp.task('styles', function() {
 			browsers: ['last 4 versions'],
 			cascade: false
 		}))
-    .pipe(gulp.dest(output.styles));
+    .pipe(gulp.dest(output.demo.styles));
 	// Process our app styles and move them into distribution
   var wheatley = gulp.src(input.styles + 'wheatley.scss')
     .pipe(sass({ outputStyle: 'expanded'}))
@@ -61,22 +64,23 @@ gulp.task('scripts', function() {
   return gulp.src(input.scripts + 'wheatley.js')
     .pipe(gulp.dest(output.dist))
     .pipe(rename({suffix: '.min'}))
+		.pipe(uglify())
     .pipe(sourcemaps.init())
     .pipe(sourcemaps.write('./maps'))
     .pipe(gulp.dest(output.dist));
 });
-    // .pipe(uglify())
 
 // Process the images
 gulp.task('images', function() {
-  gulp.src(input.images + '**/*')
-    .pipe(gulp.dest(output.images));
+	gulp.src([input.images + '**/*', '!**/portal-crosshair.svg'])
+    .pipe(gulp.dest(output.demo.images));
 });
 
 // Process the HTML files
 gulp.task('html', function() {
   gulp.src(input.root + '**/*.html')
-    .pipe(gulp.dest(output.root));
+		.pipe(flatten())
+    .pipe(gulp.dest(output.demo.root));
 });
 
 // Watch for file changes and start up browser-sync for live reloads
@@ -84,7 +88,8 @@ gulp.task('watch', ['styles'], function() {
     // Start serving files
     browserSync({
 			server: './',
-	    index:  'src/index.html'
+	    index:  'demo/index.html',
+			tunnel: 'wheatleyjs'
 		});
     // Watch for CSS changes and inject them into the browser
     gulp.watch(input.styles + '/**/*.scss', ['styles']);

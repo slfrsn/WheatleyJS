@@ -1,12 +1,55 @@
 @import url(https://fonts.googleapis.com/css?family=Just+Me+Again+Down+Here);
 body {
-  background: url("../img/portal.jpg") no-repeat center/cover fixed;
+  background: url("../img/background.jpg") no-repeat center/cover fixed;
 }
 
-body, html, .row, .row > div, #portal-area {
-  margin: 0;
-  overflow: hidden;
+.container, html, body {
   height: 100%;
+}
+
+.container {
+  padding: 60px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.row {
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+
+.fa-hand-paper-o {
+  font-size: 6rem;
+  float: left;
+  margin-right: 20px;
+}
+
+.show-if-touch {
+  display: none;
+}
+
+.has-touch .show-if-touch {
+  display: block;
+}
+
+.has-touch .hide-if-touch {
+  display: none;
+}
+
+.alert-wheatley {
+  color: #fff;
+  background-color: #333;
+  border-color: #333;
+  text-align: center;
+}
+
+.alert-wheatley p {
+  margin-bottom: 10px !important;
 }
 
 a {
@@ -17,71 +60,56 @@ a:hover {
   text-decoration: none !important;
 }
 
-#credit a {
-  font: 2.5rem "Just Me Again Down Here", cursive;
-  margin-left: 10px;
-}
-
-#title, .add-margin, ul {
+.add-margin {
   margin-bottom: 60px;
 }
 
 #title {
-  font: 300 4rem 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font: 300 2rem 'Helvetica Neue', Helvetica, Arial, sans-serif;
   letter-spacing: 8px;
 }
 
-#documentation {
-  padding: 80px;
-  overflow-y: scroll;
-}
-
 #playground {
-  padding: 80px 80px 80px 0;
-}
-
-#portal-area {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
   border-radius: 30px;
   border: 6px dashed #333;
+  min-height: 300px;
+}
+
+#playground > div {
+  height: vh;
+  width: 100%;
 }
 
 #credit {
   text-align: right;
+  font-size: 1rem;
 }
 
-#options label {
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  margin-bottom: 0;
+#credit a {
+  font: 2rem "Just Me Again Down Here", cursive;
+  margin-left: 5px;
 }
 
-#options label:before {
-  position: absolute;
-  left: -2.14285714em;
-  width: 2.14285714em;
-  text-align: center;
-  font-family: FontAwesome;
-  content: "\f096";
+@media (min-width: 34em) {
+  #title {
+    font-size: 2.25rem;
+  }
+  #credit a {
+    font-size: 2rem;
+  }
 }
 
-#options label:after {
-  content: attr(data-description);
-}
-
-#options input[type=checkbox] {
-  display: none;
-}
-
-#options input[type=checkbox]:checked + label,
-#options input[type=checkbox]:checked + label:before {
-  content: "\f14a";
-}
-
-.dragged {
-  -webkit-filter: brightness(0);
-  filter: brightness(0);
-  opacity: 0.1;
+@media (min-width: 48em) {
+  #title {
+    font-size: 2.5rem;
+  }
 }
