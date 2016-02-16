@@ -173,11 +173,8 @@
             // Only allow one instance of the portal crosshair
             if ($crosshair.length) self.crosshair.destroy();
             $(self.settings.container).addClass('wheatley-container');
-            // Place the portal crosshair at the top of the container
-            var y = self.locate().parent.top,
-                x = self.locate().parent.left;
             // Attach the portal crosshair to the DOM
-        		$crosshair.appendTo('body').css({ top : y, left : x });
+        		$crosshair.appendTo('body');
           	// Map the portal crosshair to the cursor
           	$document.on('mousemove', function(e) {
               // Check if the cursor is moving inside the container. If not, hide the crosshair
