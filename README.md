@@ -4,7 +4,7 @@
 
 > **Disclaimer:** This is 110% for fun. It's a project I work on when I need to unwind. As such, browser testing is pretty lax and commits may be seldom. _However_, if you find an issue or have a contribution to make, I'll be all over that. Please don't hesitate to get involved.
 
-#### [LAUNCH THE DEMO!](https://wheatleyjs.github.io)
+#### [LAUNCH THE DEMO!](http://slfrsn.github.io/WheatleyJS)
 
 ## Usage
 
