@@ -1,0 +1,289 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Wheatleyjs by slfrsn</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Wheatleyjs</h1>
+        <p>Valve&#39;s portals recreated in CSS and Javascript, bundled as a jQuery plugin</p>
+
+        <p class="view"><a href="https://github.com/slfrsn/WheatleyJS">View the Project on GitHub <small>slfrsn/WheatleyJS</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/slfrsn/WheatleyJS/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/slfrsn/WheatleyJS/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/slfrsn/WheatleyJS">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="wheatleyjs" class="anchor" href="#wheatleyjs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Wheatley.js</h1>
+
+<p><strong>Portal gun, meet the web.</strong> You're thinking: why on <em>Earth</em> would you go through all the trouble of recreating Valve's portals and packaging it up in a jQuery plugin? Well... I... <strong>"Science isn't about <em>why</em>, it's about <em>why not</em>."</strong> Yeah! What Cave Johnson said. Thanks, Cave! Alright, on to the good stuff...</p>
+
+<blockquote>
+<p><strong>Disclaimer:</strong> This is 110% for fun. It's a project I work on when I need to unwind. As such, browser testing is pretty lax and commits may be seldom. <em>However</em>, if you find an issue or have a contribution to make, I'll be all over that. Please don't hesitate to get involved.</p>
+</blockquote>
+
+<h4>
+<a id="launch-the-demo" class="anchor" href="#launch-the-demo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://wheatleyjs.github.io">LAUNCH THE DEMO!</a>
+</h4>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<ol>
+<li>
+<p>Download and include the CSS and Javascript files...</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">link</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>wheatley.min.css<span class="pl-pds">"</span></span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>wheatley.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+
+<p><strong>Note</strong>: Wheatley requires jQuery (1.12.0 or newer). Make sure you include jQuery before Wheatley.</p>
+</li>
+<li>
+<p>Initialize Wheatley...</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>#some-element<span class="pl-pds">'</span></span>).<span class="pl-en">wheatley</span>();</pre></div>
+</li>
+</ol>
+
+<h2>
+<a id="options" class="anchor" href="#options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Options</h2>
+
+<p>Options can be set during initialization...</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>#some-element<span class="pl-pds">'</span></span>).<span class="pl-en">wheatley</span>({
+    size<span class="pl-k">:</span> <span class="pl-c1">200</span>, <span class="pl-c">// Default: 200</span>
+    container<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>#some-container<span class="pl-pds">'</span></span> <span class="pl-c">// Default: 'body'</span>
+});</pre></div>
+
+<p>The following options are currently available. More will be added in the future as Wheatley matures.</p>
+
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th align="center">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>size</strong></td>
+<td align="center">200</td>
+<td align="left">Portal width (in pixels)</td>
+</tr>
+<tr>
+<td><strong>container</strong></td>
+<td align="center">'body'</td>
+<td align="left">Restrict movement of the crosshair to this element</td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="api" class="anchor" href="#api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API</h2>
+
+<p>To interact with Wheatley you'll need to target its data on the element you attached it to. If you plan on doing this more than once, it's a good idea to assign a variable. For example...</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> wheatley <span class="pl-k">=</span> <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>#some-element<span class="pl-pds">'</span></span>).<span class="pl-c1">data</span>(<span class="pl-s"><span class="pl-pds">'</span>wheatley<span class="pl-pds">'</span></span>);</pre></div>
+
+<p>For the sake of simplicity, we'll use that variable throughout the rest of this documentation.</p>
+
+<p><strong>Note:</strong> for methods that accept callback arguments, you can use an anonymous function like the following and it will execute when the method is finished.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">wheatley</span>.<span class="pl-smi">some</span>.<span class="pl-c1">method</span>(<span class="pl-k">function</span>(){
+    <span class="pl-en">alert</span>(<span class="pl-s"><span class="pl-pds">'</span>Some method has finished!<span class="pl-pds">'</span></span>);
+});</pre></div>
+
+<h4>
+<a id="general-methods" class="anchor" href="#general-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>General Methods</h4>
+
+<ul>
+<li>
+<strong>Initialize:</strong> initializes Wheatley and sets up the mouse click listeners
+
+<ul>
+<li>
+<strong>callback</strong> <em>Optional:</em> Accepts a function to call when it's finished<br>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">wheatley</span>.<span class="pl-en">initialize</span>();</pre></div>
+
+<ul>
+<li>
+<strong>Option:</strong> Sets or returns an option
+
+<ul>
+<li>
+<strong>key</strong> <em>Required:</em> Accepts any valid option as a string (e.g. <code>size</code> or <code>container</code>)</li>
+<li>
+<strong>value</strong> <em>Optional:</em> Accepts a value to update the option with<br>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">wheatley</span>.<span class="pl-en">option</span>(<span class="pl-s"><span class="pl-pds">'</span>size<span class="pl-pds">'</span></span>); <span class="pl-c">// Returns 200, the default option for portal size</span>
+<span class="pl-smi">wheatley</span>.<span class="pl-en">option</span>(<span class="pl-s"><span class="pl-pds">'</span>size<span class="pl-pds">'</span></span>, <span class="pl-c1">400</span>); <span class="pl-c">// Updates the portal size to 400</span></pre></div>
+
+<ul>
+<li>
+<strong>Locate:</strong> Returns the coordinates for all of the Wheatley components currently on the page. If an element doesn't exist on the page its value in the object will be null.<br>
+</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">wheatley</span>.<span class="pl-en">locate</span>(); <span class="pl-c">// Returns the following object format...</span>
+{
+    blue<span class="pl-k">:</span>      { top<span class="pl-k">:</span> <span class="pl-c1">555</span>, left<span class="pl-k">:</span> <span class="pl-c1">289</span>, bottom<span class="pl-k">:</span> <span class="pl-c1">815</span>, right<span class="pl-k">:</span> <span class="pl-c1">489</span> },
+    crosshair<span class="pl-k">:</span> { top<span class="pl-k">:</span> <span class="pl-c1">237.75</span>, left<span class="pl-k">:</span> <span class="pl-k">-</span><span class="pl-c1">31.25</span> },
+    orange<span class="pl-k">:</span>    { top<span class="pl-k">:</span> <span class="pl-c1">555</span>, left<span class="pl-k">:</span> <span class="pl-c1">671</span>, bottom<span class="pl-k">:</span> <span class="pl-c1">815</span>, right<span class="pl-k">:</span> <span class="pl-c1">871</span> },
+    parent<span class="pl-k">:</span>    { top<span class="pl-k">:</span> <span class="pl-c1">555</span>, left<span class="pl-k">:</span> <span class="pl-c1">289</span>, bottom<span class="pl-k">:</span> <span class="pl-c1">843</span>, right<span class="pl-k">:</span> <span class="pl-c1">1326</span> }
+}</pre></div>
+
+<ul>
+<li>
+<strong>Destroy:</strong> Destroys the Wheatley instance and resets the changes it made to the DOM
+
+<ul>
+<li>
+<strong>callback</strong> <em>Optional:</em> Accepts a function to call when it's finished<br>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">wheatley</span>.<span class="pl-en">destroy</span>();</pre></div>
+
+<h4>
+<a id="portal-methods" class="anchor" href="#portal-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Portal Methods</h4>
+
+<ul>
+<li>
+<strong>Create:</strong> Create a portal of the specified colour at the specified coordinates<br>
+
+<ul>
+<li>
+<strong>colour</strong> <em>Required:</em> Accepts <code>'blue'</code> or <code>'orange'</code>
+</li>
+<li>
+<strong>coordinates</strong> <em>Optional:</em> Accepts an object of x, y values. These coordinates are relative to the element we've attached Wheatley to. Default is <code>{ x: 0, y: 0 }</code>
+</li>
+<li>
+<strong>callback</strong> <em>Optional:</em> Accepts a function to call when it's finished<br>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">wheatley</span>.<span class="pl-smi">portal</span>.<span class="pl-en">create</span>(<span class="pl-s"><span class="pl-pds">'</span>blue<span class="pl-pds">'</span></span>); <span class="pl-c">// Creates a blue portal at 0,0</span>
+<span class="pl-smi">wheatley</span>.<span class="pl-smi">portal</span>.<span class="pl-en">create</span>(<span class="pl-s"><span class="pl-pds">'</span>blue<span class="pl-pds">'</span></span>, {x<span class="pl-k">:</span> <span class="pl-c1">10</span>, y<span class="pl-k">:</span> <span class="pl-c1">20</span>}); <span class="pl-c">// Creates a blue portal at 10,20</span></pre></div>
+
+<ul>
+<li>
+<strong>Destroy:</strong> Destroys the portal<br>
+
+<ul>
+<li>
+<strong>colour</strong> <em>Required:</em> Accepts <code>'blue'</code> or <code>'orange'</code>
+</li>
+<li>
+<strong>callback</strong> <em>Optional:</em> Accepts a function to call when it's finished<br>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">wheatley</span>.<span class="pl-smi">portal</span>.<span class="pl-en">destroy</span>(<span class="pl-s"><span class="pl-pds">'</span>orange<span class="pl-pds">'</span></span>); <span class="pl-c">// Destroys the orange portal</span></pre></div>
+
+<h4>
+<a id="crosshair-methods" class="anchor" href="#crosshair-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Crosshair Methods</h4>
+
+<ul>
+<li>
+<strong>Initialize:</strong> Initializes the crosshair and starts listening to mouse movement
+
+<ul>
+<li>
+<strong>callback</strong> <em>Optional:</em> Accepts a function to call when it's finished<br>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">wheatley</span>.<span class="pl-smi">crosshair</span>.<span class="pl-en">initialize</span>();</pre></div>
+
+<ul>
+<li>
+<strong>Animate:</strong> Triggers a CSS animation on the crosshair element
+
+<ul>
+<li>
+<strong>animation</strong> <em>Required:</em> any CSS animation class name, default behaviour is to use <code>'.misfire'</code>, the animation bundled with Wheatley.</li>
+<li>
+<strong>callback</strong> <em>Optional:</em> Accepts a function to call when the animation has finished<br>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">wheatley</span>.<span class="pl-smi">crosshair</span>.<span class="pl-en">animate</span>(<span class="pl-s"><span class="pl-pds">'</span>misfire<span class="pl-pds">'</span></span>); <span class="pl-c">// Triggers the misfire animation</span></pre></div>
+
+<ul>
+<li>
+<strong>Destroy:</strong> Destroys the crosshair
+
+<ul>
+<li>
+<strong>callback</strong> <em>Optional:</em> Accepts a function to call when it's finished<br>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">wheatley</span>.<span class="pl-smi">crosshair</span>.<span class="pl-en">destroy</span>();</pre></div>
+
+<h2>
+<a id="road-map" class="anchor" href="#road-map" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Road Map</h2>
+
+<ul>
+<li>[ ] Add support for relevant browsers (e.g. the crosshair relies on <code>pointer-events: none</code> and IE 10 and under don't support it)</li>
+<li>[ ] Add support for touch devices (1-point touch for blue portals, 2-point touch for orange)</li>
+<li>[ ] Add the ability to "throw" objects into one portal and exit the opposite portal while maintaining kinetic motion</li>
+</ul>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>Contributions are welcome! And encouraged! Help me check some of those road map items off my list, or submit an issue or pull request if you find a bug.</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>Copyright © 2016 <a href="https://github.com/slfrsn">slfrsn</a> - <a href="https://opensource.org/licenses/MIT">The MIT License (MIT)</a></p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/slfrsn">slfrsn</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
