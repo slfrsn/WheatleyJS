@@ -139,7 +139,8 @@ wheatley.crosshair.destroy();
 
 ## Road Map
 
-- [ ] Add support for touch devices _(1-point touch for blue portals, 2-point touch for orange)_
+- [ ] Add support for relevant browsers (e.g. the crosshair relies on ```pointer-events: none``` and IE 10 and under don't support it)
+- [ ] Add support for touch devices (1-point touch for blue portals, 2-point touch for orange)
 - [ ] Add the ability to "throw" objects into one portal and exit the opposite portal while maintaining kinetic motion
 
 ## Contributing

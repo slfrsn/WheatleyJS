@@ -11,7 +11,9 @@
       $element = $(element),
     $crosshair = $('<div id="wheatley-crosshair"></div>'),
      $document = $(document),
-  animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+  animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
+           IE9 = navigator.userAgent.toString().toLowerCase().indexOf("msie 9")>-1,
+          IE10 = navigator.userAgent.toString().toLowerCase().indexOf("msie 10")>-1;
 
       var defaults = {
         size      : 200,
@@ -21,6 +23,10 @@
       self.settings = $.extend({}, defaults, options);
 
       self.initialize = function(callback) {
+        // IE 10 and older don't support pointer-events:none so we're disabling the crosshair altogether
+        // Supporting the crosshair in older browsers (within moderation) is on the road map
+        if (IE9 || IE10) $('body').addClass('wheatley-ie');
+
         self.crosshair.initialize();
 
         // Left click in the element to create a blue portal, right click for orange

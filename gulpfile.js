@@ -11,7 +11,8 @@ var sourcemaps = require('gulp-sourcemaps'),
   		  filter = require('gulp-filter'),
   			  sass = require('gulp-sass'),
 				 merge = require('merge-stream'),
-			 flatten = require('gulp-flatten');
+			 flatten = require('gulp-flatten'),
+			 ghPages = require('gulp-gh-pages');
 
 // Setup some common paths to use in the tasks
 var input = {
@@ -96,6 +97,12 @@ gulp.task('watch', ['styles'], function() {
     // Watch for any other file changes and reload the browser
     gulp.watch(input.scripts + '**/*.js', ['scripts']).on('change', browserSync.reload);
     gulp.watch(input.root + '**/*.html', ['html']).on('change', browserSync.reload);
+});
+
+// Deploy to GitHub Pages branch
+gulp.task('deploy', function() {
+	gulp.src(input.demo.root + '**/*')
+    .pipe(ghPages());
 });
 
 // Run the tasks ('default' is required)

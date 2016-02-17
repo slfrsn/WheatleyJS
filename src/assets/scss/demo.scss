@@ -1,42 +1,41 @@
-// Demo CSS
-
-@import url(https://fonts.googleapis.com/css?family=Just+Me+Again+Down+Here);
-$custom-font : 'Just Me Again Down Here', cursive;
-
 body { background: url('../img/background.jpg') no-repeat center / cover fixed; }
+
 .container, html, body { height:100%; }
+
 .container {
   padding: 60px;
   display: flex;
   flex-direction: column;
 }
+
 .row { flex: 0 0 auto; }
-.fa-hand-paper-o {
-  font-size: 6rem;
-  float: left;
-  margin-right: 20px;
+
+.show-if-touch {
+  display: none;
+  & .fa-hand-paper-o {
+    font-size: 6rem;
+    float: left;
+    margin-right: 20px;
+  }
 }
-.show-if-touch { display: none; }
+
 .has-touch {
   & .show-if-touch { display: block; }
   & .hide-if-touch { display: none; }
 }
-.alert-wheatley {
-  color: #fff;
-  background-color: #333;
-  border-color: #333;
-  text-align: center;
-  & p { margin-bottom: 10px !important; }
-}
-a {
+
+a:not(.btn) {
   color: #333 !important;
   &:hover { text-decoration: none !important; }
 }
+
 .add-margin { margin-bottom: 60px; }
+
 #title {
   font: 300 2rem 'Helvetica Neue', Helvetica, Arial, sans-serif;
   letter-spacing: 8px;
 }
+
 #playground {
   display: flex;
   flex-direction: row;
@@ -49,18 +48,17 @@ a {
     width: 100%;
   }
 }
+
 #credit {
+  margin: 30px 0;
   text-align: right;
-  font-size: 1rem;
-  & a {
-    font: 2rem $custom-font;
-    margin-left: 5px;
-  }
+  & a { font-weight: bold; }
 }
+
 @media (min-width: 34em) {
   #title { font-size: 2.25rem; }
-  #credit a { font-size: 2rem; }
 }
+
 @media (min-width: 48em) {
   #title { font-size: 2.5rem; }
 }
