@@ -51,6 +51,7 @@ gulp.task('styles', function() {
     .pipe(gulp.dest(output.dist))
     .pipe(minifyCSS())
     .pipe(rename({suffix: '.min'}))
+    .pipe(gulp.dest(output.demo.styles))
     .pipe(sourcemaps.init())
     .pipe(sourcemaps.write('./maps'))
     .pipe(gulp.dest(output.dist));
@@ -66,6 +67,7 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest(output.dist))
     .pipe(rename({suffix: '.min'}))
 		.pipe(uglify())
+    .pipe(gulp.dest(output.demo.scripts))
     .pipe(sourcemaps.init())
     .pipe(sourcemaps.write('./maps'))
     .pipe(gulp.dest(output.dist));
@@ -73,7 +75,7 @@ gulp.task('scripts', function() {
 
 // Process the images
 gulp.task('images', function() {
-	gulp.src([input.images + '**/*', '!**/portal-crosshair.svg'])
+	gulp.src([input.images + '**/*', '!**/crosshair.svg'])
     .pipe(gulp.dest(output.demo.images));
 });
 
@@ -88,8 +90,7 @@ gulp.task('html', function() {
 gulp.task('watch', ['styles'], function() {
     // Start serving files
     browserSync({
-			server: './',
-	    index:  'demo/index.html',
+			server: './demo/',
 			tunnel: 'wheatleyjs'
 		});
     // Watch for CSS changes and inject them into the browser
@@ -101,7 +102,7 @@ gulp.task('watch', ['styles'], function() {
 
 // Deploy to GitHub Pages branch
 gulp.task('deploy', function() {
-	gulp.src(input.demo.root + '**/*')
+	gulp.src(output.demo.root + '**/*')
     .pipe(ghPages());
 });
 
