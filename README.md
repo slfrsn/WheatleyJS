@@ -12,7 +12,7 @@
 
 	```html
 	<link href="wheatley.min.css" rel="stylesheet">
-  <script src="wheatley.min.js"></script>
+  	<script src="wheatley.min.js"></script>
 	```
 
 	**Note**: Wheatley requires jQuery (1.12.0 or newer). Make sure you include jQuery before Wheatley.
